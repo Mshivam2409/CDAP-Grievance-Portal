@@ -11,7 +11,7 @@ const changeCredentials = (fname: string, lname: string, rollno: string, phoneno
     }
 }
 
-const changeGrievanceDatabyAudio = (audio: File): changeGrievanceDatabyAudioAction => {
+const changeGrievanceDatabyAudio = (audio: Blob): changeGrievanceDatabyAudioAction => {
     return {
         type: AUDIO,
         audio: audio

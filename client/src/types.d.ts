@@ -6,7 +6,7 @@ export interface grievanceData {
     phoneno: string,
     rollno: string,
     mode: "Audio" | "Text",
-    Audio?: File
+    Audio?: Blob
     Text?: string
 }
 
@@ -20,7 +20,7 @@ export interface changeCredentialsAction {
 
 export interface changeGrievanceDatabyAudioAction {
     type: typeof AUDIO
-    audio: File
+    audio: Blob
 }
 
 export interface changeGrievanceDatabyTextAction {

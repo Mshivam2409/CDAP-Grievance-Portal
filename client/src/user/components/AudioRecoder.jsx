@@ -56,7 +56,7 @@ const Recorder = (props) => {
     },
     stopCallback: (e) => {
       setAudioSrc(window.URL.createObjectURL(e));
-      props.setAudioBlob(window.URL.createObjectURL(e));
+      props.setAudioBlob(e);
       console.log("Duration", duration);
       setDuration(0);
       console.log("succ stop", e);
