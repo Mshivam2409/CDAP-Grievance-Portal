@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import StopIcon from "@material-ui/icons/Stop";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -18,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
+  wrapIcon: {
+    verticalAlign: "middle",
+    display: "inline-flex",
+  },
 }));
 
 const Recorder = (props) => {
@@ -26,9 +31,13 @@ const Recorder = (props) => {
   const [duration, setDuration] = React.useState(0);
   const [placeholder, setPlaceholder] = React.useState("0");
 
+  const controlAudio = (status) => {
+    setStatus(status);
+  };
+
   React.useEffect(() => {
-    if (duration > 10) {
-      console.log("Duration Exceeded");
+    if (duration > 180) {
+      controlAudio("inactive");
     }
     if (Math.floor((duration % 60) / 10) > 0) {
       setPlaceholder("");
@@ -36,10 +45,6 @@ const Recorder = (props) => {
       setPlaceholder("0");
     }
   }, [duration]);
-
-  const controlAudio = (status) => {
-    setStatus(status);
-  };
 
   const classes = useStyles();
   const audioProps = {
@@ -124,6 +129,15 @@ const Recorder = (props) => {
         >
           STOP
         </Button>
+      </div>
+      <div>
+        <Typography color="textSecondary" className={classes.wrapIcon}>
+          <InfoOutlinedIcon
+            color="textSecondary"
+            style={{ marginRight: "2px" }}
+          />
+          You are only allowed to record upto 3 minutes.
+        </Typography>
       </div>
     </div>
   );

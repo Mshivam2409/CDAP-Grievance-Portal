@@ -27,3 +27,8 @@ export interface changeGrievanceDatabyTextAction {
     type: typeof TEXT
     text: string
 }
+
+export interface JSONresponse {
+    message: string,
+    valid: boolean
+}

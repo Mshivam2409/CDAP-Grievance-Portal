@@ -60,6 +60,7 @@ const DetailsForm = (props: any) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            required
             id="mobileno"
             name="mobileno"
             label="Mobile No."
@@ -70,6 +71,7 @@ const DetailsForm = (props: any) => {
         </Grid>
         <Grid item xs={12}>
           <TextField
+            required
             id="email"
             name="email"
             label="IITK Email Id."

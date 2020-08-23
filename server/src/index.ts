@@ -21,16 +21,15 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use("/api", router)
 
 if (process.env.NODE_ENV === "production") {
     const publicPath = process.env.BUILD_DIRECTORY as string
     app.use(express.static(publicPath));
-    app.get("/", (req, res) => {
+    app.use("/*", (req, res) => {
         res.sendFile(path.resolve(publicPath + "/index.html"));
     });
 }
-
-app.use(router)
 
 app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     if (res.headersSent) {

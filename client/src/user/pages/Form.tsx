@@ -22,10 +22,12 @@ import Recorder from "user/components/AudioRecoder";
 import AlertDialog from "shared/components/AlertDialog";
 
 // Utils
-import generateGrievanceData from "utils/generateGrievanceData";
 import Copyright from "shared/components/Copyright";
 import TextGrievance from "user/components/TextGrievance";
 import { FormProps } from "user/containers/FormContainer";
+import { JSONresponse } from "types";
+import validateStudentCredentials from "utils/validateStudentCredentials";
+import submitGrievanceData from "utils/submitGrievanceData";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -66,16 +68,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Your Details", "Record Audio", "Review"];
+const steps = ["Your Details", "Record Grievance", "Review"];
 
 export default function GrievanceForm(props: FormProps) {
   const classes = useStyles();
   // States
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const [mode, setMode] = React.useState<string>("Audio"); //Mode in which the Grievance is to Be recorded.
+  const [mode, setMode] = React.useState<"Text" | "Audio">("Text"); //Mode in which the Grievance is to Be recorded.
   const [error, setError] = React.useState<string>("");
   const [open, setOpen] = React.useState<boolean>(false);
+  const [response, setResponse] = React.useState<string>("");
 
   // Input Refs for the Details Form
   const firstName = React.useRef<HTMLInputElement>();
@@ -86,7 +89,7 @@ export default function GrievanceForm(props: FormProps) {
   const refs = [firstName, lastName, rollNo, phoneNo, emailId];
 
   // Handlers
-  const changeMode = (mode: string) => {
+  const changeMode = (mode: "Text" | "Audio") => {
     setMode(mode);
     console.log(mode);
   };
@@ -112,7 +115,7 @@ export default function GrievanceForm(props: FormProps) {
           <TextGrievance setText={props.setText} />
         );
       case 2:
-        return <ReviewForm />;
+        return <ReviewForm data={props.grievanceData} />;
       default:
         throw new Error("Unknown step");
     }
@@ -120,7 +123,7 @@ export default function GrievanceForm(props: FormProps) {
 
   // Validation Functions
 
-  const validateCredentials = async (): Promise<boolean> => {
+  const validateCredentials = async (): Promise<JSONresponse> => {
     props.setCredentials(
       refs[0].current?.value as string,
       refs[1].current?.value as string,
@@ -128,8 +131,18 @@ export default function GrievanceForm(props: FormProps) {
       refs[3].current?.value as string,
       refs[4].current?.value as string
     );
-    console.log(props.grievanceData);
-    return true;
+    const resp = await validateStudentCredentials(
+      refs[2].current?.value as string,
+      refs[4].current?.value as string
+    );
+    console.log(resp);
+    return resp;
+  };
+
+  const submit = async () => {
+    const response = await submitGrievanceData(props.grievanceData);
+    setResponse(response.message);
+    return response;
   };
 
   const handleNext = async () => {
@@ -137,8 +150,9 @@ export default function GrievanceForm(props: FormProps) {
     switch (activeStep) {
       case 0: {
         const isValid = await validateCredentials();
-        if (isValid) setActiveStep(activeStep + 1);
-        else handleError("Invalid Credentials");
+        // if (!isValid.valid)
+        setActiveStep(activeStep + 1);
+        // else handleError(isValid.message);
         break;
       }
       case 1: {
@@ -146,12 +160,14 @@ export default function GrievanceForm(props: FormProps) {
         break;
       }
       case 2: {
+        await submit();
         setActiveStep(activeStep + 1);
         break;
       }
       default:
         break;
     }
+
     setIsLoading(false);
     console.log(props.grievanceData);
   };
@@ -169,7 +185,7 @@ export default function GrievanceForm(props: FormProps) {
             CDAP Grievance Portal
           </Typography>
           <Button color="inherit" component={NavLink} to="/admin/signin">
-            Login(FOR CDAP MEMBERS ONLY)
+            Login
           </Button>
         </Toolbar>
       </AppBar>
@@ -193,18 +209,18 @@ export default function GrievanceForm(props: FormProps) {
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
                 </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
+                <Typography variant="subtitle1">{response}</Typography>
               </React.Fragment>
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
+                    <Button
+                      onClick={handleBack}
+                      className={classes.button}
+                      disabled={isLoading}
+                    >
                       Back
                     </Button>
                   )}
@@ -213,6 +229,7 @@ export default function GrievanceForm(props: FormProps) {
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
+                    disabled={isLoading}
                   >
                     {activeStep === steps.length - 1 ? "Place order" : "Next"}
                   </Button>

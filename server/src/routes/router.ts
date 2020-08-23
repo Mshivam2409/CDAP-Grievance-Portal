@@ -1,13 +1,14 @@
 import { Router } from "express";
+import bodyParser from "body-parser";
+
 import upload from "middleware/audio";
-import newGrievance from "controllers/grievance-controller";
+import { newGrievance, validateStudentCredentials } from "controllers/grievance-controller";
 
 const router = Router()
 
-router.post("/newGrievance/", upload, newGrievance)
+const jsonParser = bodyParser.json()
 
-router.get("*", () => {
-    console.log("1")
-})
+router.post("/newGrievance", upload, newGrievance)
+router.post("/validate", jsonParser, validateStudentCredentials)
 
 export default router

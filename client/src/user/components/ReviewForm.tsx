@@ -5,14 +5,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
+import { grievanceData } from "types";
 
-const products = [
-  { name: "Product 1", desc: "A nice thing", price: "$9.99" },
-  { name: "Product 2", desc: "Another thing", price: "$3.45" },
-  { name: "Product 3", desc: "Something else", price: "$6.51" },
-  { name: "Product 4", desc: "Best thing of all", price: "$14.11" },
-  { name: "Shipping", desc: "", price: "Free" },
-];
 const addresses = [
   "1 Material-UI Drive",
   "Reactville",
@@ -39,52 +33,56 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ReviewForm() {
+export default function ReviewForm(props: any) {
   const classes = useStyles();
+
+  console.log(props);
+
+  const data: grievanceData = props.data;
+
+  const products = [
+    { name: "Name", price: data.name },
+    { name: "Roll No.", price: data.rollno },
+    { name: "Phone No.", price: data.phoneno },
+    { name: "Email Id", price: data.email },
+    { name: "Mode of Grievance", desc: "", price: data.mode },
+  ];
 
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Order summary
+        Grievance summary
       </Typography>
       <List disablePadding>
         {products.map((product) => (
           <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+            <ListItemText primary={product.name} />
+            <Typography variant="body2" className={classes.total}>
+              {product.price}
+            </Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
-          <ListItemText primary="Total" />
+          <ListItemText primary="Date" />
           <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+            {new Date().toDateString()}
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}>
           <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
+            Grievance
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
-        </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Payment details
-          </Typography>
-          <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
-          </Grid>
+
+          {data.mode === "Audio" ? (
+            <audio
+              src={window.URL.createObjectURL(data.Audio)}
+              controls
+            ></audio>
+          ) : (
+            <Typography gutterBottom>{data.Text}</Typography>
+          )}
         </Grid>
       </Grid>
     </React.Fragment>

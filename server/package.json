@@ -8,7 +8,7 @@
     "tsc": "tsc",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn ./src/index.ts --transpileOnly ",
     "prod": "tsc && node ./build/index.js",
-    "start": "node build/index.js"
+    "start": "node index.js"
   },
   "author": "Shivam Malhotra",
   "license": "MIT",
