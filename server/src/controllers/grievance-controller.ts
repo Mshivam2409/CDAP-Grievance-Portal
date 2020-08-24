@@ -1,16 +1,12 @@
-import { Request, NextFunction, Response, text } from "express";
-import { grievanceFormData, grievance, grievanceDB } from "types";
+import { Request, NextFunction, Response } from "express";
+import { grievanceFormData, grievance } from "types";
 import { v4 } from "uuid";
-import { writeFile } from "utils/fileSystem";
+import { grievancesdb, studentsdb } from "data/database";
 
 const newGrievance = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data: grievanceFormData = req.body
-        console.log(1)
-        const grievances: grievanceDB = require("data/grievances.json")
-        console.log(2)
         const id = v4()
-        console.log(3)
         const newGrievance: grievance = {
             name: data.name,
             rollno: data.rollno,
@@ -22,15 +18,13 @@ const newGrievance = async (req: Request, res: Response, next: NextFunction) => 
             audio: req.file ? req.file.originalname : "",
             text: data.text || ""
         }
-        console.log(4)
-        grievances[id] = newGrievance
-        console.log(5)
-        await writeFile("data/grievances.json", JSON.stringify(grievances))
+        console.log(newGrievance)
+        grievancesdb.set(id, newGrievance).write()
         res.status(201).send({ message: `Grievance added with id ${id}` })
     }
     catch (error) {
         console.log(console.error())
-        res.status(500).send({ message: "An error" })
+        res.status(500).send({ message: "Sorry , An error occured in the server we could not process your request. Please try again later." })
     }
 }
 
@@ -39,10 +33,8 @@ const validateStudentCredentials = async (req: Request, res: Response, next: Nex
         email: string,
         rollno: string
     } = req.body
-    console.log(data)
     try {
-        const students: { [key: string]: string } = require("data/students.json")
-        if ((students[data.rollno.trim()]) === data.email.trim()) {
+        if ((studentsdb.get(data.rollno.trim()).value()) === data.email.trim()) {
             res.status(200).send({ message: "Vailid Cridentials" })
         }
         else {
@@ -51,7 +43,7 @@ const validateStudentCredentials = async (req: Request, res: Response, next: Nex
     }
     catch (err) {
         console.log(err)
-        res.status(422).send({ message: "Invalid Cridentials" })
+        res.status(500).send({ message: "Invalid Cridentials" })
     }
 }
 

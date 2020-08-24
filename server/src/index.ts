@@ -1,14 +1,17 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import path from "path";
+import helmet from "helmet";
 
 dotenv.config();
 
 import router from "routes/router";
+import { studentsdb, grievancesdb } from "data/database";
 
 const PORT = process.env.PORT || "5000"
 
 const app = express();
+
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -20,6 +23,8 @@ app.use((req, res, next) => {
     res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
     next();
 });
+
+app.use(helmet())
 
 app.use("/api", router)
 
@@ -42,5 +47,12 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
 
 app.listen(parseInt(PORT), '0.0.0.0', () => {
     console.log(`Server Listening on Port ${PORT}`);
+    try {
+        studentsdb.read()
+        grievancesdb.read()
+        console.log("Database Loaded!")
+    } catch (error) {
+        console.log("Error Loading Database!")
+    }
 })
 

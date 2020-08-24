@@ -1,1 +1,111 @@
-{"0f6dbadf-040a-45b9-92b0-ca7fd2c21054":{"name":"Shivam Malhotra","rollno":"","phoneno":"+449872874632","email":"mshivam@iitk.ac.in","date":1598144755418,"resolved":"Not Resolved","mode":"Text","text":"sadsad"},"40446e47-6b0a-4487-ae99-d244626f9b75":{"name":"Shivam Malhotra","rollno":"1212","phoneno":"+449872874632","email":"mshivam@iitk.ac.in","date":1598144825490,"resolved":"Not Resolved","mode":"Text","audio":"","text":"wqewqeqwe"},"b5eb6e68-8040-4bc0-98a7-da4a3fca91ea":{"name":"Shivam Malhotra","rollno":"190808","phoneno":"+449872874632","email":"mshivam@iitk.ac.in","date":1598145067150,"resolved":"Not Resolved","mode":"Text","audio":"","text":"asdasdasdasdasdsad"},"02ddcfb3-5e91-4f90-a3b8-8ca90e36e111":{"name":"Shivam Malhotra","rollno":"190808","phoneno":"+449872874632","email":"mshivam@iitk.ac.in","date":1598145185291,"resolved":"Not Resolved","mode":"Audio","audio":"Shivam Malhotra.wav","text":""}}
+{
+  "0f6dbadf-040a-45b9-92b0-ca7fd2c21054": {
+    "name": "Shivam Malhotra",
+    "rollno": "",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598144755418,
+    "resolved": "Not Resolved",
+    "mode": "Text",
+    "text": "sadsad"
+  },
+  "40446e47-6b0a-4487-ae99-d244626f9b75": {
+    "name": "Shivam Malhotra",
+    "rollno": "1212",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598144825490,
+    "resolved": "Not Resolved",
+    "mode": "Text",
+    "audio": "",
+    "text": "wqewqeqwe"
+  },
+  "b5eb6e68-8040-4bc0-98a7-da4a3fca91ea": {
+    "name": "Shivam Malhotra",
+    "rollno": "190808",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598145067150,
+    "resolved": "Not Resolved",
+    "mode": "Text",
+    "audio": "",
+    "text": "asdasdasdasdasdsad"
+  },
+  "02ddcfb3-5e91-4f90-a3b8-8ca90e36e111": {
+    "name": "Shivam Malhotra",
+    "rollno": "190808",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598145185291,
+    "resolved": "Not Resolved",
+    "mode": "Audio",
+    "audio": "Shivam Malhotra.wav",
+    "text": ""
+  },
+  "530e7048-0c8c-4e9c-ae85-4689ccd2691a": {
+    "name": "Shivam Malhotra",
+    "rollno": "190808",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598224324785,
+    "resolved": "Not Resolved",
+    "mode": "Text",
+    "audio": "",
+    "text": "db.set('user.name', 'typicode')\n  .value()\n\ndb.write()"
+  },
+  "02ef6cf0-1d22-4102-a3af-7d38abe7630c": {
+    "name": "Shivam Malhotra",
+    "rollno": "",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598224415394,
+    "resolved": "Not Resolved",
+    "mode": "Text",
+    "audio": "",
+    "text": "sdadsad"
+  },
+  "4496a9a2-09ef-4eed-af60-567697001a94": {
+    "name": "Shivam Malhotra",
+    "rollno": "190808",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598224485514,
+    "resolved": "Not Resolved",
+    "mode": "Text",
+    "audio": "",
+    "text": "fsfsfsadasdadsa"
+  },
+  "8ace20e8-eaa7-46a9-82d3-b12f97d27e8c": {
+    "name": "Shivam Malhotra",
+    "rollno": "190808",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598224515085,
+    "resolved": "Not Resolved",
+    "mode": "Text",
+    "audio": "",
+    "text": ""
+  },
+  "0d39f77b-e202-487e-953e-e85d85e6655f": {
+    "name": "Shivam Malhotra",
+    "rollno": "190808",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598224664376,
+    "resolved": "Not Resolved",
+    "mode": "Text",
+    "audio": "",
+    "text": "reyryeyeryer"
+  },
+  "c450aa3b-1475-42ba-9a45-bf76d31975b6": {
+    "name": "Shivam Malhotra",
+    "rollno": "190808",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598225517923,
+    "resolved": "Not Resolved",
+    "mode": "Text",
+    "audio": "",
+    "text": "35werewrewrewrewrrwe"
+  }
+}

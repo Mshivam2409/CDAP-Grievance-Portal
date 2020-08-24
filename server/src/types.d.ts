@@ -12,10 +12,6 @@ export interface grievance {
     text?: string
 }
 
-export interface grievanceDB {
-    [id: string]: grievance
-}
-
 
 export interface grievanceFormData {
     name: string,
