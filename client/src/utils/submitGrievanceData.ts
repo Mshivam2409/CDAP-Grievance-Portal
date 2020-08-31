@@ -3,19 +3,21 @@ import { JSONresponse, grievanceData } from "types";
 const submitGrievanceData = async (formdata: grievanceData): Promise<JSONresponse> => {
 
     const data = new FormData();
+    const time = Date.now()
 
-    data.append("name", formdata.name)
-    data.append("rollno", formdata.rollno)
-    data.append("email", formdata.email)
-    data.append("phoneno", formdata.phoneno)
-    data.append("mode", formdata.mode)
+    data.append("name", formdata.name.trim())
+    data.append("rollno", formdata.rollno.trim())
+    data.append("email", formdata.email.trim())
+    data.append("phoneno", formdata.phoneno.trim())
+    data.append("mode", formdata.mode.trim())
+    data.append("date", time.toString())
 
     if (formdata.mode === "Audio") {
-        const audioFile = new File([formdata.Audio as Blob], `${formdata.name}.wav`, {
+        const audioFile = new File([formdata.Audio as Blob], `${formdata.rollno.trim()}.wav`, {
             type: "audio/wav",
-            lastModified: Date.now(),
+            lastModified: time,
         });
-        data.append("audio", audioFile, `${formdata.name}.wav`)
+        data.append("audio", audioFile, `${formdata.rollno.trim()}.wav`)
     }
     else if (formdata.mode === "Text") {
         data.append("text", formdata.Text as string)
@@ -25,7 +27,12 @@ const submitGrievanceData = async (formdata: grievanceData): Promise<JSONrespons
         method: "POST",
         body: data,
     })
-
+    if (response.status === 409) {
+        return {
+            message: "We found a duplicate pending request , please wait for it to be resolved!",
+            valid: false
+        }
+    }
     if (!response.ok)
         return {
             message: "We are having trouble connecting to the servers, please try after some time",

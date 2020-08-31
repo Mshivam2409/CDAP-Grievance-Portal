@@ -1,111 +1,110 @@
 {
-  "0f6dbadf-040a-45b9-92b0-ca7fd2c21054": {
-    "name": "Shivam Malhotra",
-    "rollno": "",
-    "phoneno": "+449872874632",
-    "email": "mshivam@iitk.ac.in",
-    "date": 1598144755418,
-    "resolved": "Not Resolved",
-    "mode": "Text",
-    "text": "sadsad"
-  },
-  "40446e47-6b0a-4487-ae99-d244626f9b75": {
-    "name": "Shivam Malhotra",
-    "rollno": "1212",
-    "phoneno": "+449872874632",
-    "email": "mshivam@iitk.ac.in",
-    "date": 1598144825490,
-    "resolved": "Not Resolved",
-    "mode": "Text",
-    "audio": "",
-    "text": "wqewqeqwe"
-  },
-  "b5eb6e68-8040-4bc0-98a7-da4a3fca91ea": {
+  "7e456715-2f1a-40f3-b76f-8ddd0738969c": {
+    "id": "7e456715-2f1a-40f3-b76f-8ddd0738969c",
     "name": "Shivam Malhotra",
     "rollno": "190808",
     "phoneno": "+449872874632",
     "email": "mshivam@iitk.ac.in",
-    "date": 1598145067150,
-    "resolved": "Not Resolved",
-    "mode": "Text",
-    "audio": "",
-    "text": "asdasdasdasdasdsad"
-  },
-  "02ddcfb3-5e91-4f90-a3b8-8ca90e36e111": {
-    "name": "Shivam Malhotra",
-    "rollno": "190808",
-    "phoneno": "+449872874632",
-    "email": "mshivam@iitk.ac.in",
-    "date": 1598145185291,
-    "resolved": "Not Resolved",
+    "date": 1598278495994,
+    "resolved": "Resolved",
     "mode": "Audio",
     "audio": "Shivam Malhotra.wav",
     "text": ""
   },
-  "530e7048-0c8c-4e9c-ae85-4689ccd2691a": {
+  "68de047e-4345-4e18-870f-d53fc6aa337c": {
+    "id": "68de047e-4345-4e18-870f-d53fc6aa337c",
     "name": "Shivam Malhotra",
     "rollno": "190808",
     "phoneno": "+449872874632",
     "email": "mshivam@iitk.ac.in",
-    "date": 1598224324785,
-    "resolved": "Not Resolved",
+    "date": 1598288427158,
+    "resolved": "Resolved",
     "mode": "Text",
     "audio": "",
-    "text": "db.set('user.name', 'typicode')\n  .value()\n\ndb.write()"
+    "text": "POQ is the diameter. ∠PAQ = ∠PBQ = ∠PCQ = 90˚.\nAlternate Segment Theorem\nThe diagram shows an angle between a tangent and a chord through the point of contact is equal to the angle in the alternate segment."
   },
-  "02ef6cf0-1d22-4102-a3af-7d38abe7630c": {
-    "name": "Shivam Malhotra",
-    "rollno": "",
-    "phoneno": "+449872874632",
-    "email": "mshivam@iitk.ac.in",
-    "date": 1598224415394,
-    "resolved": "Not Resolved",
-    "mode": "Text",
-    "audio": "",
-    "text": "sdadsad"
-  },
-  "4496a9a2-09ef-4eed-af60-567697001a94": {
+  "3fe7a292-a684-4416-9d12-ffeeb4647a39": {
+    "id": "3fe7a292-a684-4416-9d12-ffeeb4647a39",
     "name": "Shivam Malhotra",
     "rollno": "190808",
     "phoneno": "+449872874632",
     "email": "mshivam@iitk.ac.in",
-    "date": 1598224485514,
-    "resolved": "Not Resolved",
-    "mode": "Text",
-    "audio": "",
-    "text": "fsfsfsadasdadsa"
-  },
-  "8ace20e8-eaa7-46a9-82d3-b12f97d27e8c": {
-    "name": "Shivam Malhotra",
-    "rollno": "190808",
-    "phoneno": "+449872874632",
-    "email": "mshivam@iitk.ac.in",
-    "date": 1598224515085,
-    "resolved": "Not Resolved",
-    "mode": "Text",
-    "audio": "",
+    "date": 1598290389484,
+    "resolved": "In Progress",
+    "mode": "Audio",
+    "audio": "190808.wav",
     "text": ""
   },
-  "0d39f77b-e202-487e-953e-e85d85e6655f": {
+  "d93207d4-f419-4ba4-9366-606532b41faa": {
+    "id": "d93207d4-f419-4ba4-9366-606532b41faa",
     "name": "Shivam Malhotra",
     "rollno": "190808",
     "phoneno": "+449872874632",
     "email": "mshivam@iitk.ac.in",
-    "date": 1598224664376,
+    "date": 1598380554143,
     "resolved": "Not Resolved",
-    "mode": "Text",
-    "audio": "",
-    "text": "reyryeyeryer"
+    "mode": "Audio",
+    "audio": "a�UI�19�-1598380554055.wav",
+    "text": ""
   },
-  "c450aa3b-1475-42ba-9a45-bf76d31975b6": {
+  "b3a30b86-79e7-4376-99c7-74f46dec695d": {
+    "id": "b3a30b86-79e7-4376-99c7-74f46dec695d",
     "name": "Shivam Malhotra",
     "rollno": "190808",
     "phoneno": "+449872874632",
     "email": "mshivam@iitk.ac.in",
-    "date": 1598225517923,
+    "date": 1598380644024,
+    "resolved": "Not Resolved",
+    "mode": "Audio",
+    "audio": "cb64004e159ba971-1598380643985.wav",
+    "text": ""
+  },
+  "bad75388-589e-4c67-8aa9-90ea85eb3b35": {
+    "id": "bad75388-589e-4c67-8aa9-90ea85eb3b35",
+    "name": "Shivam Malhotra",
+    "rollno": "190808 ",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598382139370,
+    "resolved": "Not Resolved",
+    "mode": "Audio",
+    "audio": "190808 .wav",
+    "text": ""
+  },
+  "95c53f17-bcf2-45b4-a4ce-fad0ef4abd54": {
+    "id": "95c53f17-bcf2-45b4-a4ce-fad0ef4abd54",
+    "name": "Shivam Malhotra",
+    "rollno": "190808",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598382357558,
+    "resolved": "Not Resolved",
+    "mode": "Audio",
+    "audio": "b1c0a7346797931c1598382357512.wav",
+    "text": ""
+  },
+  "6cff7ab1-f28f-4514-a488-7672432659b5": {
+    "id": "6cff7ab1-f28f-4514-a488-7672432659b5",
+    "name": "Shivam Malhotra",
+    "rollno": "190808",
+    "phoneno": "+449872874632",
+    "email": "mshivam@iitk.ac.in",
+    "date": 1598386012216,
     "resolved": "Not Resolved",
     "mode": "Text",
     "audio": "",
-    "text": "35werewrewrewrewrrwe"
+    "text": "asdadsadasd"
+  },
+  "9b838246-dd57-45ed-84ab-826b5d38b256": {
+    "id": "9b838246-dd57-45ed-84ab-826b5d38b256",
+    "name": "Shivam Malhotra",
+    "rollno": "100",
+    "phoneno": "+449872874632",
+    "email": "a",
+    "date": 1598386213805,
+    "resolved": "Not Resolved",
+    "mode": "Text",
+    "audio": "",
+    "text": "dfdsfsdfdsf"
   }
 }

@@ -13,7 +13,13 @@ const validateStudentCredentials = async (rollno: string, email: string,): Promi
             })
         })
         console.log(response)
-        if (!response.ok)
+        if (response.status === 422) {
+            return {
+                message: "You have entered Invalid Credentials! Please Check Them.",
+                valid: false
+            }
+        }
+        else if (!response.ok)
             return {
                 message: "We are having trouble connecting to the servers, please try after some time.",
                 valid: false

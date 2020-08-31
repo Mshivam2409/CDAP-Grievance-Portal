@@ -32,3 +32,16 @@ export interface JSONresponse {
     message: string,
     valid: boolean
 }
+
+export interface grievance {
+    id: string,
+    name: string,
+    rollno: string,
+    phoneno: string,
+    email: string,
+    date: number,
+    resolved: "Not Resolved" | "In Progress" | "Resolved",
+    mode: "Audio" | "Text"
+    audio?: PathLike,
+    text?: string
+}

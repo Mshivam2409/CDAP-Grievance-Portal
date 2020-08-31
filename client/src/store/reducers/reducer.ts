@@ -17,7 +17,7 @@ const GrievanceData = (state: grievanceData = defaultState,
     action: changeCredentialsAction | changeGrievanceDatabyTextAction | changeGrievanceDatabyAudioAction) => {
     switch (action.type) {
         case STUDENT_CREDENTIALS: {
-            var stateCopy: grievanceData = {
+            var stateCopy1: grievanceData = {
                 name: state.name,
                 email: state.email,
                 phoneno: state.phoneno,
@@ -25,14 +25,14 @@ const GrievanceData = (state: grievanceData = defaultState,
                 mode: state.mode,
                 Text: state.Text
             }
-            stateCopy.name = action.name
-            stateCopy.email = action.email
-            stateCopy.rollno = action.rollno
-            stateCopy.phoneno = action.phoneno
-            return stateCopy
+            stateCopy1.name = action.name
+            stateCopy1.email = action.email
+            stateCopy1.rollno = action.rollno
+            stateCopy1.phoneno = action.phoneno
+            return stateCopy1
         }
         case AUDIO: {
-            var stateCopy: grievanceData = {
+            var stateCopy2: grievanceData = {
                 name: state.name,
                 email: state.email,
                 phoneno: state.phoneno,
@@ -40,12 +40,12 @@ const GrievanceData = (state: grievanceData = defaultState,
                 mode: state.mode,
                 Text: state.Text
             }
-            stateCopy.mode = "Audio"
-            stateCopy.Audio = action.audio
-            return stateCopy
+            stateCopy2.mode = "Audio"
+            stateCopy2.Audio = action.audio
+            return stateCopy2
         }
         case TEXT: {
-            var stateCopy: grievanceData = {
+            var stateCopy3: grievanceData = {
                 name: state.name,
                 email: state.email,
                 phoneno: state.phoneno,
@@ -53,9 +53,9 @@ const GrievanceData = (state: grievanceData = defaultState,
                 mode: state.mode,
                 Text: state.Text
             }
-            stateCopy.mode = "Text"
-            stateCopy.Text = (action as changeGrievanceDatabyTextAction).text
-            return stateCopy
+            stateCopy3.mode = "Text"
+            stateCopy3.Text = (action as changeGrievanceDatabyTextAction).text
+            return stateCopy3
         }
         default:
             return state;

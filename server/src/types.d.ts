@@ -1,6 +1,7 @@
 import { PathLike } from "fs";
 
 export interface grievance {
+    id: string,
     name: string,
     rollno: string,
     phoneno: string,
@@ -18,6 +19,7 @@ export interface grievanceFormData {
     rollno: string,
     email: string,
     phoneno: string,
+    date: string
     mode: "Audio" | "Text"
     text?: string
 }

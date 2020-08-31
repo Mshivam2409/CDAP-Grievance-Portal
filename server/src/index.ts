@@ -2,16 +2,16 @@ import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import path from "path";
 import helmet from "helmet";
+import chalk from "chalk"
 
 dotenv.config();
 
 import router from "routes/router";
-import { studentsdb, grievancesdb } from "data/database";
+import { studentsdb, grievancesdb, CDAPdb } from "controllers/database";
 
 const PORT = process.env.PORT || "5000"
 
 const app = express();
-
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -24,9 +24,13 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(helmet())
+app.use(helmet({
+    contentSecurityPolicy: false
+}))
 
 app.use("/api", router)
+
+app.use("/secure/data", express.static(process.env.DATABASE_DIR as string))
 
 if (process.env.NODE_ENV === "production") {
     const publicPath = process.env.BUILD_DIRECTORY as string
@@ -40,19 +44,26 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     if (res.headersSent) {
         return next(error);
     }
-    res.status(error.code || 500);
-    res.json({ message: error.message || "An unknown error occured!" });
+    if (error.name === 'UnauthorizedError') {
+        console.log(chalk.red("Unauthorized Access!"))
+        res.status(401).send({ message: "Unauthorized Access!" });
+    }
+    else {
+        res.status(error.code || 500);
+        res.json({ message: error.message || "An unknown error occured!" });
+    }
 });
 
 
 app.listen(parseInt(PORT), '0.0.0.0', () => {
-    console.log(`Server Listening on Port ${PORT}`);
+    console.log(`Server Listening on Port ${chalk.yellow(PORT)}`);
     try {
         studentsdb.read()
         grievancesdb.read()
-        console.log("Database Loaded!")
+        CDAPdb
+        console.log(chalk.green("Database Loaded!"))
     } catch (error) {
-        console.log("Error Loading Database!")
+        console.log(chalk.red("Error Loading Database!"))
     }
 })
 

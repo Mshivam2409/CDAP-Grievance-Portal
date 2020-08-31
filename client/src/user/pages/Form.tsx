@@ -1,6 +1,6 @@
 // React Components
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 // Material UI Components
 import { makeStyles } from "@material-ui/core/styles";
@@ -72,6 +72,7 @@ const steps = ["Your Details", "Record Grievance", "Review"];
 
 export default function GrievanceForm(props: FormProps) {
   const classes = useStyles();
+  const history = useHistory();
   // States
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -81,17 +82,17 @@ export default function GrievanceForm(props: FormProps) {
   const [response, setResponse] = React.useState<string>("");
 
   // Input Refs for the Details Form
-  const firstName = React.useRef<HTMLInputElement>();
-  const lastName = React.useRef<HTMLInputElement>();
-  const rollNo = React.useRef<HTMLInputElement>();
-  const phoneNo = React.useRef<HTMLInputElement>();
-  const emailId = React.useRef<HTMLInputElement>();
+  const [firstName, setFname] = React.useState<string>("");
+  const [lastName, setLname] = React.useState<string>("");
+  const [rollNo, setRollNo] = React.useState<string>("");
+  const [phoneNo, setPhoneNo] = React.useState<string>("");
+  const [emailId, setEmailId] = React.useState<string>("");
   const refs = [firstName, lastName, rollNo, phoneNo, emailId];
+  const sets = [setFname, setLname, setRollNo, setPhoneNo, setEmailId];
 
   // Handlers
   const changeMode = (mode: "Text" | "Audio") => {
     setMode(mode);
-    console.log(mode);
   };
 
   const handleError = (message: string = "An Unknown Error Occured"): void => {
@@ -107,7 +108,14 @@ export default function GrievanceForm(props: FormProps) {
   const getStepContent = (step: number): JSX.Element => {
     switch (step) {
       case 0:
-        return <DetailsForm refs={refs} mode={mode} setMode={changeMode} />;
+        return (
+          <DetailsForm
+            refs={refs}
+            mode={mode}
+            setMode={changeMode}
+            sets={sets}
+          />
+        );
       case 1:
         return mode === "Audio" ? (
           <Recorder setAudioBlob={props.setAudio} />
@@ -124,24 +132,27 @@ export default function GrievanceForm(props: FormProps) {
   // Validation Functions
 
   const validateCredentials = async (): Promise<JSONresponse> => {
+    setIsLoading(true);
     props.setCredentials(
-      refs[0].current?.value as string,
-      refs[1].current?.value as string,
-      refs[2].current?.value as string,
-      refs[3].current?.value as string,
-      refs[4].current?.value as string
+      refs[0] as string,
+      refs[1] as string,
+      refs[2] as string,
+      refs[3] as string,
+      refs[4] as string
     );
     const resp = await validateStudentCredentials(
-      refs[2].current?.value as string,
-      refs[4].current?.value as string
+      refs[2] as string,
+      refs[4] as string
     );
-    console.log(resp);
+    setIsLoading(false);
     return resp;
   };
 
   const submit = async () => {
+    setIsLoading(true);
     const response = await submitGrievanceData(props.grievanceData);
     setResponse(response.message);
+    setIsLoading(false);
     return response;
   };
 
@@ -150,12 +161,18 @@ export default function GrievanceForm(props: FormProps) {
     switch (activeStep) {
       case 0: {
         const isValid = await validateCredentials();
-        // if (!isValid.valid)
-        setActiveStep(activeStep + 1);
-        // else handleError(isValid.message);
+        if (isValid.valid) setActiveStep(activeStep + 1);
+        else handleError(isValid.message);
         break;
       }
       case 1: {
+        if (
+          (props.grievanceData.Text as string).length < 20 &&
+          props.grievanceData.mode === "Text"
+        ) {
+          handleError("Please Right A Longer Grievance!");
+          break;
+        }
         setActiveStep(activeStep + 1);
         break;
       }
@@ -167,9 +184,7 @@ export default function GrievanceForm(props: FormProps) {
       default:
         break;
     }
-
     setIsLoading(false);
-    console.log(props.grievanceData);
   };
 
   const handleBack = () => {
@@ -184,8 +199,15 @@ export default function GrievanceForm(props: FormProps) {
           <Typography variant="h6" color="inherit" noWrap style={{ flex: 1 }}>
             CDAP Grievance Portal
           </Typography>
-          <Button color="inherit" component={NavLink} to="/admin/signin">
-            Login
+          <Button
+            color="inherit"
+            onClick={() => {
+              const href =
+                props.loggedIn === true ? "/admin/dashboard" : "/admin/signin";
+              history.push(href);
+            }}
+          >
+            {props.loggedIn === true ? "Dashboard" : "Login"}
           </Button>
         </Toolbar>
       </AppBar>
@@ -207,7 +229,7 @@ export default function GrievanceForm(props: FormProps) {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  Thank you for your grievance.
                 </Typography>
                 <Typography variant="subtitle1">{response}</Typography>
               </React.Fragment>

@@ -8,9 +8,10 @@ import {
 } from "store/actions/changeGrievanceData";
 import GrievanceForm from "user/pages/Form";
 
-const mapStateToProps = (state: RootState) => {
+const mapStateToProps = (state: RootState, ownProps: any) => {
   return {
     grievanceData: state.GrievanceData,
+    loggedIn: ownProps.loggedIn as boolean,
   };
 };
 

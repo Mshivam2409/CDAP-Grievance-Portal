@@ -1,13 +1,15 @@
 import { Request, NextFunction, Response } from "express";
 import { grievanceFormData, grievance } from "types";
 import { v4 } from "uuid";
-import { grievancesdb, studentsdb } from "data/database";
+import { grievancesdb, studentsdb } from "controllers/database";
+import { fstat, unlinkSync } from "fs";
 
 const newGrievance = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const data: grievanceFormData = req.body
         const id = v4()
         const newGrievance: grievance = {
+            id: id,
             name: data.name,
             rollno: data.rollno,
             phoneno: data.phoneno,
@@ -15,12 +17,20 @@ const newGrievance = async (req: Request, res: Response, next: NextFunction) => 
             date: Date.now(),
             resolved: "Not Resolved",
             mode: data.mode,
-            audio: req.file ? req.file.originalname : "",
+            audio: req.file ? req.file.filename : "",
             text: data.text || ""
         }
         console.log(newGrievance)
-        grievancesdb.set(id, newGrievance).write()
-        res.status(201).send({ message: `Grievance added with id ${id}` })
+        if (grievancesdb.filter({ rollno: data.rollno }).filter({ resolved: "Not Resolved" }).isEmpty().value() && grievancesdb.filter({ rollno: data.rollno }).filter({ resolved: "In Progress" }).isEmpty().value()) {
+            grievancesdb.set(id, newGrievance).write()
+            res.status(201).send({ message: `Grievance added with id ${id}` })
+        }
+        else {
+            if (data.mode === "Audio") {
+                unlinkSync(process.env.DIR + "/data/audio/" + req.file.filename)
+            }
+            res.status(409).send({ message: `Duplicate` })
+        }
     }
     catch (error) {
         console.log(console.error())

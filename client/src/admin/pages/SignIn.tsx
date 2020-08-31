@@ -14,6 +14,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Copyright from "shared/components/Copyright";
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import AlertDialog from "shared/components/AlertDialog";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,73 +51,130 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignIn = () => {
+const SignIn = (props: any) => {
   const classes = useStyles();
+  const history = useHistory();
+  const email = React.useRef<HTMLInputElement>();
+  const password = React.useRef<HTMLInputElement>();
+  const [error, setError] = React.useState<string>("");
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  const handleError = (message: string = "An Unknown Error Occured"): void => {
+    setError(message);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setError("");
+  };
+
+  const Submit = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: (email.current?.value as string).trim(),
+          pwd: (password.current?.value as string).trim(),
+        }),
+      });
+      if (response.status === 422) {
+        handleError("Invalid Credentials");
+        throw Error("Invalid");
+      }
+      if (!response.ok) {
+        handleError();
+        throw Error("Invalid Credentials!");
+      }
+      const responseData = await response.json();
+      console.log(responseData);
+      if (responseData.token) {
+        localStorage.setItem("cdap", responseData.token);
+        props.logIn();
+        history.push("/admin/dashboard");
+      }
+    } catch (error) {
+      handleError();
+    }
+    setIsLoading(false);
+  };
 
   return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+    <React.Fragment>
+      <AlertDialog open={open} handleClose={handleClose} message={error} />
+      <Grid container component="main" className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className={classes.image} />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          {isLoading && <LinearProgress color="secondary" />}
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            <form className={classes.form} noValidate>
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                inputRef={email}
+              />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                inputRef={password}
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={Submit}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <NavLink to="/home">{"Back to Home"}</NavLink>
+                </Grid>
               </Grid>
-              <Grid item>
-                <NavLink to="/home">{"Back to Home"}</NavLink>
-              </Grid>
-            </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </form>
-        </div>
+              <Box mt={5}>
+                <Copyright />
+              </Box>
+            </form>
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </React.Fragment>
   );
 };
 
