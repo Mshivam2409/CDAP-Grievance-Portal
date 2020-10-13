@@ -1,6 +1,6 @@
 # :school: CDAP Grievances Portal
 
-This is the codebase for a **grievance** portal for CDAP _(Centre for Disabled Persons)_
+This is the codebase for a grievance portal for **CDAP _(Centre for Disabled Persons)_,IIT Kanpur**
 
 ## :computer: Tech Stack
 
