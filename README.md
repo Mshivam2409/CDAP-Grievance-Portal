@@ -17,4 +17,4 @@ The Teck Stack for the Portal is:
 ## :lock: Security
 
 - :rescue_worker_helmet: HelmetJS
-- :shield: DDoS Js
+- :shield: Rate Limiter
