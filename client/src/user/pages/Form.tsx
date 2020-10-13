@@ -253,7 +253,7 @@ export default function GrievanceForm(props: FormProps) {
                     className={classes.button}
                     disabled={isLoading}
                   >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    {activeStep === steps.length - 1 ? "Submit" : "Next"}
                   </Button>
                 </div>
               </React.Fragment>

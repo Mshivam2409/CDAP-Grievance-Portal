@@ -23,7 +23,10 @@ const newGrievance = async (req: Request, res: Response, next: NextFunction) => 
         console.log(newGrievance)
         if (grievancesdb.filter({ rollno: data.rollno }).filter({ resolved: "Not Resolved" }).isEmpty().value() && grievancesdb.filter({ rollno: data.rollno }).filter({ resolved: "In Progress" }).isEmpty().value()) {
             grievancesdb.set(id, newGrievance).write()
-            res.status(201).send({ message: `Grievance added with id ${id}` })
+            res.status(201).send({
+                message: `Thank you for sharing your concerns and problems. Necessary actions
+            will be taken by the CDAP team and you will be informed so.Your grievance id is ${id}.`
+            })
         }
         else {
             if (data.mode === "Audio") {

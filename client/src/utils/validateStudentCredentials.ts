@@ -15,7 +15,7 @@ const validateStudentCredentials = async (rollno: string, email: string,): Promi
         console.log(response)
         if (response.status === 422) {
             return {
-                message: "You have entered Invalid Credentials! Please Check Them.",
+                message: "You have entered Invalid Credentials! Please Check Them again and try again.",
                 valid: false
             }
         }

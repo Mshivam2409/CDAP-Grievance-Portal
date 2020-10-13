@@ -23,7 +23,7 @@ const DetailsForm = (props: any) => {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Student Details
+        Kindly fill the Information below for Student Verification
       </Typography>
       <ValidatorForm
         onError={(errors) => {
