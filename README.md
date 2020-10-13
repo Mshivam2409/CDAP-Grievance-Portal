@@ -1,8 +1,10 @@
 # :school: CDAP Grievances Portal
 
-<img src="https://i.ibb.co/9NyCxJ0/lightning.png" alt="lightning"/>
-
 This is the codebase for a **grievance** portal for CDAP _(Centre for Disabled Persons)_
+
+## :computer: Tech Stack
+
+<img src="https://i.ibb.co/9NyCxJ0/lightning.png" alt="lightning"/>
 
 The Teck Stack for the Portal is:
 
@@ -11,3 +13,8 @@ The Teck Stack for the Portal is:
 - :zap: LowDB
 - :scroll: Typescript
 - :whale: Docker
+
+## :lock: Security
+
+- :rescue_worker_helmet: HelmetJS
+- :shield: DDoS Js
