@@ -8,6 +8,7 @@ dotenv.config();
 
 import router from "routes/router";
 import { studentsdb, grievancesdb, CDAPdb } from "controllers/database";
+import rateLimiterMiddleware from "middleware/ddos";
 
 const PORT = process.env.PORT || "5000"
 
@@ -27,6 +28,8 @@ app.use((req, res, next) => {
 app.use(helmet({
     contentSecurityPolicy: false
 }))
+
+app.use(rateLimiterMiddleware)
 
 app.use("/api", router)
 
@@ -60,7 +63,7 @@ app.listen(parseInt(PORT), '0.0.0.0', () => {
     try {
         studentsdb.read()
         grievancesdb.read()
-        CDAPdb
+        CDAPdb.read();
         console.log(chalk.green("Database Loaded!"))
     } catch (error) {
         console.log(chalk.red("Error Loading Database!"))

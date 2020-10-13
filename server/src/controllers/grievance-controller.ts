@@ -1,10 +1,10 @@
-import { Request, NextFunction, Response } from "express";
+import { RequestHandler } from "express";
 import { grievanceFormData, grievance } from "types";
 import { v4 } from "uuid";
 import { grievancesdb, studentsdb } from "controllers/database";
 import { fstat, unlinkSync } from "fs";
 
-const newGrievance = async (req: Request, res: Response, next: NextFunction) => {
+const newGrievance: RequestHandler = async (req, res, next) => {
     try {
         const data: grievanceFormData = req.body
         const id = v4()
@@ -41,7 +41,7 @@ const newGrievance = async (req: Request, res: Response, next: NextFunction) => 
     }
 }
 
-const validateStudentCredentials = async (req: Request, res: Response, next: NextFunction) => {
+const validateStudentCredentials: RequestHandler = async (req, res, next) => {
     const data: {
         email: string,
         rollno: string

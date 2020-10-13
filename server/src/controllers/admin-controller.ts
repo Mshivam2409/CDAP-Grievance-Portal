@@ -1,11 +1,11 @@
-import { Request, NextFunction, Response } from "express";
+import { RequestHandler } from "express";
 import { CDAPdb, grievancesdb } from "controllers/database";
 import chalk from "chalk"
 import jwt from "jsonwebtoken"
 import { grievance } from "types";
 import { unlinkSync } from "fs";
 
-const signIn = async (req: Request, res: Response, next: NextFunction) => {
+const signIn: RequestHandler = async (req, res, next) => {
     try {
         const data: {
             email: string,
@@ -31,7 +31,7 @@ const signIn = async (req: Request, res: Response, next: NextFunction) => {
     }
 }
 
-const getGrievances = async (req: Request, res: Response, next: NextFunction) => {
+const getGrievances: RequestHandler = async (req, res, next) => {
     try {
         let data
         switch (req.body.required as "top" | "resolved" | "progress" | "not") {
@@ -62,7 +62,7 @@ const getGrievances = async (req: Request, res: Response, next: NextFunction) =>
     }
 }
 
-const changeStatus = async (req: Request, res: Response, next: NextFunction) => {
+const changeStatus: RequestHandler = async (req, res, next) => {
     try {
         const id = req.body.id
         const status = req.body.status
