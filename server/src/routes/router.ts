@@ -5,7 +5,7 @@ import jwt from "express-jwt"
 import upload from "middleware/audio";
 import { newGrievance, validateStudentCredentials } from "controllers/grievance-controller";
 import { signIn, getGrievances, changeStatus } from "controllers/admin-controller";
-import { publicKey } from "keys/keys";
+import { publicKey } from "auth/keys";
 
 const router = Router()
 

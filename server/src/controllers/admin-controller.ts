@@ -4,7 +4,7 @@ import chalk from "chalk"
 import jwt from "jsonwebtoken"
 import { grievance } from "types";
 import { unlinkSync } from "fs";
-import { privateKey } from "keys/keys";
+import { privateKey } from "auth/keys";
 
 const signIn: RequestHandler = async (req, res, next) => {
     try {
