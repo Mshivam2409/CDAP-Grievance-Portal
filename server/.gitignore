@@ -113,4 +113,7 @@ dist
 #db
 src/data/*
 !src/data/database.ts
+
+#Keys
+*.pem
 # End of https://www.toptal.com/developers/gitignore/api/node

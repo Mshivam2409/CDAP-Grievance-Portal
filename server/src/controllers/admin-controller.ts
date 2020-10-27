@@ -4,6 +4,7 @@ import chalk from "chalk"
 import jwt from "jsonwebtoken"
 import { grievance } from "types";
 import { unlinkSync } from "fs";
+import { privateKey } from "keys/keys";
 
 const signIn: RequestHandler = async (req, res, next) => {
     try {
@@ -13,7 +14,7 @@ const signIn: RequestHandler = async (req, res, next) => {
         } = req.body
         if (CDAPdb.has(data.email.trim()).value()) {
             if (CDAPdb.get(data.email.trim()).value() === data.pwd) {
-                const token = jwt.sign(data, "a", {
+                const token = jwt.sign(data, privateKey, {
                     expiresIn: "1h"
                 })
                 res.status(200).json({ message: "Login Successful", token: token })
