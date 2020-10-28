@@ -15,7 +15,8 @@ const signIn: RequestHandler = async (req, res, next) => {
         if (CDAPdb.has(data.email.trim()).value()) {
             if (CDAPdb.get(data.email.trim()).value() === data.pwd) {
                 const token = jwt.sign(data, privateKey, {
-                    expiresIn: "1h"
+                    expiresIn: "1h",
+                    algorithm: "RS256"
                 })
                 res.status(200).json({ message: "Login Successful", token: token })
             }

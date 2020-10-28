@@ -2,13 +2,16 @@ import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import path from "path";
 import helmet from "helmet";
-import chalk from "chalk"
+import chalk from "chalk";
+import morgan from "morgan";
+const clfDate = require('clf-date');
 
 dotenv.config();
 
 import router from "routes/router";
 import { studentsdb, grievancesdb, CDAPdb } from "controllers/database";
 import rateLimiterMiddleware from "middleware/ddos";
+import winstonStream from "config/winston";
 
 const PORT = process.env.PORT || "5000"
 
@@ -31,6 +34,8 @@ app.use(helmet({
 
 app.use(rateLimiterMiddleware)
 
+app.use(morgan(`[:date[clf]] :remote-addr - :remote-user - :method :url HTTP/:http-version :status :res[content-length] :referrer :user-agent`, { stream: winstonStream }))
+
 app.use("/api", router)
 
 app.use("/secure/data", express.static(process.env.DATABASE_DIR as string))
@@ -47,6 +52,7 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     if (res.headersSent) {
         return next(error);
     }
+    winstonStream.error(`${clfDate()} - ${req.ip} - ${req.method} - ${error.status || 500} - ${error.message} - ${error.name} - ${req.originalUrl}`);
     if (error.name === 'UnauthorizedError') {
         console.log(chalk.red("Unauthorized Access!"))
         res.status(401).send({ message: "Unauthorized Access!" });

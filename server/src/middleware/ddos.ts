@@ -15,7 +15,7 @@ const rateLimiterMiddleware: RequestHandler = (req, res, next) => {
             next();
         })
         .catch((rejRes) => {
-            chalk.red()
+            console.log(chalk.red("POSSIBLE DDOS ATTACK!!"))
             res.status(429).send('Too Many Requests');
         });
 };
